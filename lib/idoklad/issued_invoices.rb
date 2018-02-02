@@ -1,19 +1,20 @@
-require 'json'
-class Idoklad::IssuedInvoices
+module Idoklad
+  class IssuedInvoices
+    class << self
+      def list
+        response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices'
+        Idoklad::Processor.process_data response.body
+      end
 
-  def self.get_list
-    response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices'
-    return JSON.parse response.body
+      def default
+        response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices/Default'
+        Idoklad::Processor.process_data response.body
+      end
+
+      def create(invoice)
+        response = Idoklad::ApiRequest.post '/developer/api/v2/IssuedInvoices', invoice
+        Idoklad::Processor.process_data response.body
+      end
+    end
   end
-
-  def self.get_default
-    response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices/Default'
-    return JSON.parse response.body
-  end
-
-  def self.create(invoice)
-    response = Idoklad::ApiRequest.post '/developer/api/v2/IssuedInvoices', invoice
-    return JSON.parse response.body
-  end
-
 end

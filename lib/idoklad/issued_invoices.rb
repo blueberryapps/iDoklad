@@ -2,18 +2,20 @@ module Idoklad
   class IssuedInvoices
     class << self
       def list
-        response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices'
-        Idoklad::Processor.process_data response.body
+        Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices'
       end
 
       def default
-        response = Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices/Default'
-        Idoklad::Processor.process_data response.body
+        Idoklad::ApiRequest.get '/developer/api/v2/IssuedInvoices/Default'
       end
 
-      def create(invoice)
-        response = Idoklad::ApiRequest.post '/developer/api/v2/IssuedInvoices', invoice
-        Idoklad::Processor.process_data response.body
+      def create(attributes)
+        Idoklad::ApiRequest.post '/developer/api/v2/IssuedInvoices', attributes
+      end
+
+      def update(id, attributes)
+        Idoklad::ApiRequest.patch "/developer/api/v2/IssuedInvoices/#{id}",
+                                  attributes
       end
     end
   end

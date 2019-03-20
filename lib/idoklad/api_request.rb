@@ -5,19 +5,19 @@ module Idoklad
     class << self
       def get(path)
         response = client.get(path, authorization)
-        Idoklad::Processor.process_data response.body
+        JSON.parse response.body
       end
 
       def post(path, object)
         headers = {'Content-type' => 'application/json'}.merge(authorization)
         response = client.post(path, JSON.generate(object), headers)
-        Idoklad::Processor.process_data response.body
+        JSON.parse response.body
       end
 
       def patch(path, object)
         headers = {'Content-type' => 'application/json'}.merge(authorization)
         response = client.patch(path, JSON.generate(object), headers)
-        Idoklad::Processor.process_data response.body
+        JSON.parse response.body
       end
 
       private

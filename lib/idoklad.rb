@@ -17,6 +17,5 @@ end
 
 require 'idoklad/contacts'
 require 'idoklad/issued_invoices'
-require 'idoklad/processor'
 require 'idoklad/auth'
 require 'idoklad/api_request'

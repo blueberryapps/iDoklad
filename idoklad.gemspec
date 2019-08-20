@@ -10,5 +10,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.add_runtime_dependency "oauth2", '~> 1.4', '>= 1.4.0'
   s.add_runtime_dependency "json", '~> 2.1.0', '>= 2.1.0'
+  s.add_runtime_dependency "rest-client", '>= 1.7.0'
   s.files       = %w[LICENSE.md README.md idoklad.gemspec] + Dir['lib/**/*.rb']
 end

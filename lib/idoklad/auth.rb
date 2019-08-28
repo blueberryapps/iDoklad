@@ -9,10 +9,12 @@ module Idoklad
     class << self
       def get_token
         @tokens ||= {}
-        @tokens[Idoklad.configuration.client_id] ||= token
+        token = @tokens[Idoklad.configuration.client_id] ||= access_token
+        token = @tokens[Idoklad.configuration.client_id] = access_token if token.expired?
+        token.token
       end
 
-      def token
+      def access_token
         client = OAuth2::Client.new(
           Idoklad.configuration.client_id,
           Idoklad.configuration.client_secret,
@@ -21,8 +23,7 @@ module Idoklad
           :site          => Idoklad::API_URL
         )
 
-        token = client.client_credentials.get_token(:scope => SCOPE)
-        token.token
+        client.client_credentials.get_token(scope: SCOPE)
       end
     end
   end
